@@ -1,10 +1,18 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
 	import type Columns from '../models/interfaces/Colums';
+
+  const dispatch = createEventDispatcher();
 
   export const columns: Columns[] = [];
   export const rows: any[] = [];
   export const showNumber: boolean = false;
   export const showActions: boolean = false;
+  export const search: string = '';
+
+  function emitEvent(eventName: string) {
+    dispatch(eventName);
+  }
 
 </script>
 
@@ -33,8 +41,12 @@
         {/each}
         {#if showActions}
           <td>
-            <i class="bi bi-pencil-square"></i>
-            <i class="bi bi-trash3"></i>
+            <button on:click={() => emitEvent('edit')}>
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button on:click={() => emitEvent('delete')}>
+              <i class="bi bi-trash3"></i>
+            </button>
           </td>
         {/if}
       </tr>
