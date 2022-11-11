@@ -1,0 +1,11 @@
+:root {
+  --primary: #1e88e5;
+}
+
+.full-width {
+  width: 100%
+}
+
+.full-height {
+  height: 100vh;
+}
