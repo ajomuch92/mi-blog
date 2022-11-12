@@ -1,4 +1,4 @@
-<ul>
+<ul aria-busy={loading}>
   {#each pages as page}
     <li>
       <a href={`pages/${page.slug}_${page.id}`}>{page.title?.rendered}</a>
@@ -12,8 +12,10 @@
 	import type Page from '../models/interfaces/Pages';
 
   let pages: Page[] =[];
+  let loading: boolean = false;
 
   const getInitialPages = () => {
+    loading = true;
     const params: AxiosRequestConfig = {
       params: {
         '_fields': 'id,title,status, slug'
@@ -21,6 +23,8 @@
     };
     getPages(params).then((response) => {
       pages = response.data;
+    }).finally(() => {
+      loading = false;
     });
   }
 
