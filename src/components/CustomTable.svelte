@@ -1,14 +1,15 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-	import type Columns from '../models/interfaces/Colums';
+	import type { Columns } from '../models/interfaces';
 
   const dispatch = createEventDispatcher();
 
-  export const columns: Columns[] = [];
-  export const rows: any[] = [];
-  export const showNumber: boolean = false;
-  export const showActions: boolean = false;
-  export const search: string = '';
+  export let columns: Columns[] = [];
+  export let rows: any[] = [];
+  export let showNumber: boolean = false;
+  export let showActions: boolean = false;
+  export let loading: boolean = false;
+  // export let search: string = '';
 
   function emitEvent(eventName: string) {
     dispatch(eventName);
@@ -16,7 +17,7 @@
 
 </script>
 
-<table>
+<table aria-busy={loading}>
   <thead>
     <tr>
       {#if showNumber}
@@ -41,10 +42,10 @@
         {/each}
         {#if showActions}
           <td>
-            <button on:click={() => emitEvent('edit')}>
+            <button class="dense" on:click={() => emitEvent('edit')}>
               <i class="bi bi-pencil-square"></i>
             </button>
-            <button on:click={() => emitEvent('delete')}>
+            <button class="dense" on:click={() => emitEvent('delete')}>
               <i class="bi bi-trash3"></i>
             </button>
           </td>
