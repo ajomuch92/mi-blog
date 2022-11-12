@@ -21,12 +21,14 @@
 </main>
 
 <script>
+	import axios from 'axios';
   import 'a-flexbox/a-flexbox.css';
   import { tokenStore } from '../../store';
   import { goto } from '$app/navigation';
 
   function logout() {
     tokenStore.set('');
+    axios.defaults.headers.Authorization = '';
     goto('/');
   }
 </script>

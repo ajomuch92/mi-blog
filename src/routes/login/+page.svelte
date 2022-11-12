@@ -1,8 +1,9 @@
 <script>
+  import axios from 'axios';
 import 'a-flexbox/a-flexbox.css';
 import { goto } from '$app/navigation';
-import 'toastify-js/src/toastify.css';
 import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 import { loginService } from '../../services/LoginService';
 import { tokenStore } from '../../store';
 
@@ -16,6 +17,7 @@ async function login() {
     const response = await loginService({ username, password});
     const { data: { token }} = response;
     tokenStore.set(token);
+    axios.defaults.headers.Authorization = `Bearer ${token}`;
     goto('/dashboard');
   } catch (err){
     console.log(err);
